@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PingBoard</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 640px; margin: 40px auto; }
+    input, button { padding: 8px; font-size: 16px; }
+    pre { background: #f4f4f4; padding: 12px; }
+  </style>
+</head>
+<body>
+  <h1>PingBoard</h1>
+  <p>Check whether a host and port are reachable.</p>
+  <input id="host" value="google.com">
+  <input id="port" value="443" size="5">
+  <button onclick="run()">Check</button>
+  <pre id="out">Result will appear here...</pre>
+  <script>
+    async function run() {
+      const h = document.getElementById("host").value;
+      const p = document.getElementById("port").value;
+      const r = await fetch("/check?host=" + encodeURIComponent(h) + "&port=" + p);
+      const j = await r.json();
+      document.getElementById("out").textContent = JSON.stringify(j, null, 2);
+    }
+  </script>
+</body>
+</html>
